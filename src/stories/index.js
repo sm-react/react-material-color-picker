@@ -1,21 +1,24 @@
 import React from 'react';
 import { storiesOf, action } from '@kadira/storybook';
-import Button from '../index';
+// import MaterialColorPicker from 'react-material-color-picker';
+import MaterialColorPicker from '../MaterialColorPicker.jsx';
 
 storiesOf('Button', module)
-  .add('default view', () => (
-    <Button onClick={ action('button clicked') }>Hello</Button>
-  ))
-  .add('some emojies as the text', () => (
-    <Button>😀 😎 👍 💯</Button>
-  ))
-  .add('custom styles', () => {
-    const style = {
-      fontSize: 20,
-      textTransform: 'uppercase',
-      color: '#FF8833',
-    };
-    return (
-      <Button style={ style }>Hello</Button>
-    );
-  });
+    .addDecorator((story) => (
+        <div
+          style={{
+              backgroundColor: '#c7c7c7',
+              position: 'relative',
+              width: '70%',
+              left: '15%',
+//                height: 300,
+          }}
+        >
+            {story()}
+        </div>
+    ))
+    .add('default view', () => (
+
+    <MaterialColorPicker initColor="#f3e5f5"/>
+
+    ));

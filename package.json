@@ -1,21 +1,31 @@
 {
   "name": "react-material-color-picker",
-  "version": "0.0.0",
+  "version": "0.9.2",
   "description": "React Material Color Picker Component",
   "repository": {
     "type": "git",
-    "url": "https://github.com/you/repo.git"
+    "url": "https://UsulPro@bitbucket.org/sm-artlight/react-material-color-picker.git"
   },
+  "keywords": [
+    "React",
+    "Material",
+    "Color",
+    "Picker",
+    "Component"
+  ],
+  "author": "UsulPro",
   "license": "MIT",
+  "homepage": "https://bitbucket.org/sm-artlight/react-material-color-picker#readme",
   "scripts": {
-    "prepublish": ". ./.scripts/prepublish.sh",
-    "lint": "eslint src",
-    "lintfix": "eslint src --fix",
-    "testonly": "mocha --require .scripts/mocha_runner src/**/tests/**/*.js",
+    "publish-storybook": ".scripts\\publish_storybook.cmd",
+    "prepublish": ".scripts\\prepublish.cmd",
+    "lint": ".scripts\\lint.cmd src",
+    "lintfix": ".scripts\\lint.cmd src --fix",
+    "testonly": ".scripts\\test.cmd",
     "test": "npm run lint && npm run testonly",
-    "test-watch": "npm run testonly -- --watch --watch-extensions js",
+    "test-watch": "bash .scripts\\test-watch.sh",
     "storybook": "start-storybook -p 9010",
-    "publish-storybook": "bash .scripts/publish_storybook.sh"
+    "start": "start-storybook -p 9001"
   },
   "devDependencies": {
     "react": "^15.0.0",
@@ -53,7 +63,7 @@
   "dependencies": {
     "babel-runtime": "^6.5.0"
   },
-  "main": "dist/index.js",
+  "main": "dist/MaterialColorPicker.js",
   "engines": {
     "npm": "^3.0.0"
   }
