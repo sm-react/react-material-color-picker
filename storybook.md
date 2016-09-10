@@ -1,2 +1,2 @@
 ## Deploy 
-Storybook deployed to: [https://sm-artlight.github.io/react-material-color-picker](https://sm-artlight.github.io/react-material-color-picker)
+Storybook deployed to: [https://sm-react.github.io/react-material-color-picker](https://sm-react.github.io/react-material-color-picker)

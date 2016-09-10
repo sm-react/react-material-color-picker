@@ -9,7 +9,7 @@ setAddon(infoAddon);
 
 
 storiesOf('Material Color Picker', module)
-    /*
+
     .addDecorator((story) => (
         <div
           style={{
@@ -23,7 +23,7 @@ storiesOf('Material Color Picker', module)
         >
             {story()}
         </div>
-    ))*/
+    ))
     .addDecorator(withKnobs)
     .add('default view', () => (
 
@@ -89,13 +89,15 @@ event = {
                 />
             </div>
     ), {inline: true, source: false})
-    .add('props view', () => (
+    .add('play with props', () => (
 
         <div style={{width: 400, backgroundColor: '#c7c7c7'}} >
             <MaterialColorPicker
-                initColor={text('Label', '#9ccc65')}
+                initColor={text('initColor', '#9ccc65')}
                 onSubmit={actionLog()}
                 onReset={actionLog()}
+                submitLabel={text('submitLabel', 'OK')}
+                resetLabel={text('submitLabel', 'Cansel')}
             />
         </div>
 

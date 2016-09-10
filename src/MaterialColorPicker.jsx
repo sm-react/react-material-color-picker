@@ -571,3 +571,4 @@ export default class MaterialColorPicker extends React.Component {
 
 MaterialColorPicker.propTypes = propTypes;
 MaterialColorPicker.defaultProps = defaultProps;
+MaterialColorPicker.displayName = 'MaterialColorPicker';
