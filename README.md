@@ -8,11 +8,11 @@
 
 ## Appearance
 
-![screen1](https://github.com/sm-react/react-material-color-picker/blob/master/doc/screen1.png)
+![screen1](https://github.com/sm-react/react-material-color-picker/raw/master/doc/screen1.png)
 
-![screen2](https://github.com/sm-react/react-material-color-picker/blob/master/doc/screen2.png)
+![screen2](https://github.com/sm-react/react-material-color-picker/raw/master/doc/screen2.png)
 
-![screen3](https://github.com/sm-react/react-material-color-picker/blob/master/doc/screen3.png)
+![screen3](https://github.com/sm-react/react-material-color-picker/raw/master/doc/screen3.png)
 
 
 ## Install
