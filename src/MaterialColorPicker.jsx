@@ -76,7 +76,7 @@ export default class MaterialColorPicker extends React.Component {
                 },
                 persist() {
                     e.persist();
-                }
+                },
             };
             this.props.onSubmit(event);
         };
@@ -101,12 +101,10 @@ export default class MaterialColorPicker extends React.Component {
                     },
                     persist() {
                         e.persist();
-                    }
+                    },
                 };
-                this.props.onReset(event)
+                this.props.onReset(event);
             });
-
-
         };
     }
 
@@ -142,8 +140,8 @@ export default class MaterialColorPicker extends React.Component {
 
     submitHover(flag) {
         return () => {
-            this.setState({hoveredSubmit: flag})
-        }
+            this.setState({ hoveredSubmit: flag });
+        };
     }
 
     colorNameList(colObj) {
@@ -481,10 +479,12 @@ export default class MaterialColorPicker extends React.Component {
                     >
                        {this.state.hoveredSubmit ?
                             <img
-                               src={
-                                    this.bwColorByName(this.fullNameString()) === 'black' ? imageDoneBlk : imageDoneWht}
-                               style={{opacity: 0.4}}
-                             /> : null
+                              src={
+                                    this.bwColorByName(this.fullNameString()) === 'black' ?
+                                    imageDoneBlk : imageDoneWht}
+                              style={{ opacity: 0.4 }}
+                              alt="submit"
+                            /> : null
                        }
 
                     </div>
@@ -518,26 +518,27 @@ export default class MaterialColorPicker extends React.Component {
                   }}
                 >
                     <div style={{
-                            width: 'auto',
+                        width: 'auto',
 //                            display: 'flex',
 //                            flexWrap: 'wrap',
-                        }}>
+                    }}
+                    >
                         <b><nobr>{ _colors[this.fullNameString()] }</nobr></b>
                     </div>
                     <div
-                        style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            justifyContent: 'flex-end',
-                            fontSize: 'larger',
-                        }}
+                      style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          justifyContent: 'flex-end',
+                          fontSize: 'larger',
+                      }}
                     >
                         <div
                           className="material-color-picker-reset"
                           title={`reset to ${this.props.initColor}`}
                           style={{
-                                cursor: 'pointer',
-                                paddingLeft: 16,
+                              cursor: 'pointer',
+                              paddingLeft: 16,
                           }}
                           onClick={this.onReset()}
                           onMouseOver={this.resetHover}
@@ -549,8 +550,8 @@ export default class MaterialColorPicker extends React.Component {
                           className="material-color-picker-submit"
                           title={`submit ${this.fullNameString()} color`}
                           style={{
-                                cursor: 'pointer',
-                                paddingLeft: 16,
+                              cursor: 'pointer',
+                              paddingLeft: 16,
                           }}
                           onClick={this.onSubmit()}
                           onMouseOver={this.submitHover(true)}
