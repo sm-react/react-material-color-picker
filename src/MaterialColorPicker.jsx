@@ -6,11 +6,18 @@ const _colors = require('./colors');
 const propTypes = {
     initColor: React.PropTypes.string,
     onSubmit: React.PropTypes.func,
+    onReset: React.PropTypes.func,
+    style: React.PropTypes.object,
+    submitLabel: React.PropTypes.string,
+    resetLabel: React.PropTypes.string,
 };
 
 const defaultProps = {
     initColor: '#40c4ff',
     onSubmit: () => {},
+    onReset: () => {},
+    submitLabel: 'Submit',
+    resetLabel: 'Reset',
 };
 
 export default class MaterialColorPicker extends React.Component {
@@ -18,7 +25,7 @@ export default class MaterialColorPicker extends React.Component {
         super(props);
         this.colorNames = this.colorNameList(_colors);
         this.toneNames = Object.keys(this.colorNames);
-
+        this.rootDivRef = null;
 
         this.toneColorByName = this.toneColorByName.bind(this);
         this.satColorByName = this.satColorByName.bind(this);
@@ -50,21 +57,57 @@ export default class MaterialColorPicker extends React.Component {
         this.fullNameString = this.fullNameString.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onReset = this.onReset.bind(this);
+
+        this.rootDiv = this.rootDiv.bind(this);
     }
 
     onSubmit() {
-        return () => {
+        return (e) => {
             const event = {
+                type: 'submit',
+                timeStamp: e.nativeEvent.timeStamp,
+                eventPhase: 3,
                 target: {
                     value: _colors[this.fullNameString()],
+                    nativeEvent: e.nativeEvent,
+                    name: 'MaterialColorPicker',
+                    node: this.rootDivRef,
+                    ...this.props,
                 },
+                persist() {
+                    e.persist();
+                }
             };
             this.props.onSubmit(event);
         };
     }
 
     onReset() {
-        this.setState(this.initState);
+        return (e) => {
+//            e.persist();
+            const timeStamp = e.nativeEvent.timeStamp;
+            const nativeEvent = e.nativeEvent;
+            this.setState(this.initState, () => {
+                const event = {
+                    type: 'reset',
+                    timeStamp,
+                    eventPhase: 3,
+                    target: {
+                        value: _colors[this.fullNameString()],
+                        nativeEvent,
+                        name: 'MaterialColorPicker',
+                        node: this.rootDivRef,
+                        ...this.props,
+                    },
+                    persist() {
+                        e.persist();
+                    }
+                };
+                this.props.onReset(event)
+            });
+
+
+        };
     }
 
     findColorName(colObj, colString) {
@@ -371,15 +414,21 @@ export default class MaterialColorPicker extends React.Component {
             </div>);
     }
 
+    rootDiv(div) {
+        this.rootDivRef = div;
+    }
+
     render() {
         return (
             <div
               className="material-color-picker"
               style={{
-                  padding: 5,
                   fontFamily: 'sans-serif',
                   fontSize: 12,
+                  ...this.props.style,
+                  padding: 5,
               }}
+              ref={this.rootDiv}
             >
                 <div
                   className="material-color-picker-tone-swatches"
@@ -490,11 +539,11 @@ export default class MaterialColorPicker extends React.Component {
                                 cursor: 'pointer',
                                 paddingLeft: 16,
                           }}
-                          onClick={this.onReset}
+                          onClick={this.onReset()}
                           onMouseOver={this.resetHover}
                           onMouseOut={this.hoverReset()}
                         >
-                            Reset
+                            {this.props.resetLabel}
                         </div>
                         <div
                           className="material-color-picker-submit"
@@ -507,7 +556,7 @@ export default class MaterialColorPicker extends React.Component {
                           onMouseOver={this.submitHover(true)}
                           onMouseOut={this.submitHover(false)}
                         >
-                            Submit
+                            {this.props.submitLabel}
                         </div>
                     </div>
                     {/*
