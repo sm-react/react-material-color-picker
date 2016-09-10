@@ -37,7 +37,7 @@ import MaterialColorPicker from 'react-material-color-picker';
 ~~~
 
 ## Demo
-[![Live demo](https://img.shields.io/badge/Live%20Demo-%20Storybook-brightgreen.svg)](https://sm-react.github.io/react-material-color-picker/)
+[![Live demo](https://img.shields.io/badge/Live%20Demo-%20Storybook-brightgreen.svg)](https://sm-react.github.io/react-material-color-picker/?selectedKind=Material%20Color%20Picker&selectedStory=default%20view&full=0&down=1&left=1&panelRight=1&downPanel=kadirahq%2Fstorybook-addon-actions%2Factions-panel)
 
 ## API
 
@@ -63,6 +63,8 @@ event = {
 };
 ~~~
 
+
+## smArtLight
 [![@UsulPro](https://img.shields.io/badge/github-UsulPro-blue.svg)](https://github.com/UsulPro)
 [![@sm-react](https://img.shields.io/badge/github-smARTLight-red.svg)](https://github.com/sm-react)
 

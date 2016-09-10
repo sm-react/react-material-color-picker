@@ -1,9 +1,11 @@
 import React from 'react';
 import { storiesOf, action, setAddon, addDecorator  } from '@kadira/storybook';
 import infoAddon from '@kadira/react-storybook-addon-info';
-import { withKnobs, text, boolean, number } from '@kadira/storybook-addon-knobs';
+import { withKnobs, text, boolean, number, object } from '@kadira/storybook-addon-knobs';
+
 // import MaterialColorPicker from 'react-material-color-picker';
 import MaterialColorPicker from '../MaterialColorPicker.jsx';
+
 
 setAddon(infoAddon);
 
@@ -89,19 +91,30 @@ event = {
                 />
             </div>
     ), {inline: true, source: false})
-    .add('play with props', () => (
+    .addWithInfo('try props',
+`
+->
 
-        <div style={{width: 400, backgroundColor: '#c7c7c7'}} >
+->
+#### select the \`KNOBS\` tab to get access for props
+`,
+                 () => {
+        const style={
+            width: 400,
+            backgroundColor: '#c7c7c7',
+        }
+        return (<div  >
             <MaterialColorPicker
-                initColor={text('initColor', '#9ccc65')}
+                initColor={text('initColor', '#ec407a')}
                 onSubmit={actionLog()}
                 onReset={actionLog()}
                 submitLabel={text('submitLabel', 'OK')}
                 resetLabel={text('resetLabel', 'Cansel')}
+                style={object('style', style)}
             />
-        </div>
+        </div>)
 
-    ));
+    }, {inline: true, source: false, header: false});
 
 
 function actionLog(title) {
