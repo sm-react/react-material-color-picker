@@ -1,10 +1,10 @@
 {
   "name": "react-material-color-picker",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "React Material Color Picker Component",
   "repository": {
     "type": "git",
-    "url": "https://UsulPro@bitbucket.org/sm-artlight/react-material-color-picker.git"
+    "url": "https://github.com/sm-react/react-material-color-picker.git"
   },
   "keywords": [
     "React",
@@ -15,7 +15,7 @@
   ],
   "author": "UsulPro",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/sm-artlight/react-material-color-picker#readme",
+  "homepage": "https://github.com/sm-react/react-material-color-picker",
   "scripts": {
     "publish-storybook": ".scripts\\publish_storybook.cmd",
     "prepublish": ".scripts\\prepublish.cmd",

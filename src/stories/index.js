@@ -97,19 +97,12 @@ event = {
                 onSubmit={actionLog()}
                 onReset={actionLog()}
                 submitLabel={text('submitLabel', 'OK')}
-                resetLabel={text('submitLabel', 'Cansel')}
+                resetLabel={text('resetLabel', 'Cansel')}
             />
         </div>
 
     ));
 
-function log() {
-    return (event) => {
-        event.persist();
-//        action('some event')(event.target)
-        console.log(event)
-    }
-}
 
 function actionLog(title) {
     return (event) => {
