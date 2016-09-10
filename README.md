@@ -6,6 +6,15 @@
 
 [Material Design](https://material.google.com/) is a design language introduced by Google. If you want to find color inspiration for a specific design style based on [material color palette](https://material.google.com/style/color.html#), you can use this component as a development tool. You may find it useful while creating Material apps in combination with such libraries as [Material-UI](http://www.material-ui.com/)
 
+## Appearance
+
+![screen1](https://github.com/sm-react/react-material-color-picker/blob/master/doc/screen1.png)
+
+![screen2](https://github.com/sm-react/react-material-color-picker/blob/master/doc/screen2.png)
+
+![screen3](https://github.com/sm-react/react-material-color-picker/blob/master/doc/screen3.png)
+
+
 ## Install
 
 $ npm i react-material-color-picker --save
