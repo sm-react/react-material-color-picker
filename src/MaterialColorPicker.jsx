@@ -329,7 +329,7 @@ export default class MaterialColorPicker extends React.Component {
         return (e) => {
             const { nativeEvent, persist } = e;
             this.setState({ hoveredTone: toneName }, () => {
-                const event = this.createEvent({nativeEvent, persist}, 'hover');
+                const event = this.createEvent({ nativeEvent, persist }, 'hover');
                 this.onHover(event);
             });
         };
@@ -337,9 +337,9 @@ export default class MaterialColorPicker extends React.Component {
 
     hoverSat(satName) {
         return (e) => {
-            const {nativeEvent, persist} = e;
-            this.setState({ hoveredSat: satName }, ()=>{
-                const event = this.createEvent({nativeEvent, persist}, 'hover');
+            const { nativeEvent, persist } = e;
+            this.setState({ hoveredSat: satName }, () => {
+                const event = this.createEvent({ nativeEvent, persist }, 'hover');
                 this.onHover(event);
             });
         };
@@ -347,9 +347,9 @@ export default class MaterialColorPicker extends React.Component {
 
     hoverReset() {
         return (e) => {
-            const {nativeEvent, persist} = e;
-            this.setState({ hoveredTone: '', hoveredSat: '' }, ()=>{
-                const event = this.createEvent({nativeEvent, persist}, 'hover');
+            const { nativeEvent, persist } = e;
+            this.setState({ hoveredTone: '', hoveredSat: '' }, () => {
+                const event = this.createEvent({ nativeEvent, persist }, 'hover');
                 this.onHover(event);
             });
         };
