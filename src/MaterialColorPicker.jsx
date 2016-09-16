@@ -6,6 +6,8 @@ const _colors = require('./colors');
 const propTypes = {
     initColor: React.PropTypes.string,
     onSubmit: React.PropTypes.func,
+    onSelect: React.PropTypes.func,
+    onHover: React.PropTypes.func,
     onReset: React.PropTypes.func,
     style: React.PropTypes.object,
     submitLabel: React.PropTypes.string,
@@ -15,6 +17,8 @@ const propTypes = {
 const defaultProps = {
     initColor: '#40c4ff',
     onSubmit: () => {},
+    onSelect: () => {},
+    onHover: () => {},
     onReset: () => {},
     submitLabel: 'Submit',
     resetLabel: 'Reset',
@@ -26,6 +30,7 @@ export default class MaterialColorPicker extends React.Component {
         this.colorNames = this.colorNameList(_colors);
         this.toneNames = Object.keys(this.colorNames);
         this.rootDivRef = null;
+        this.hoveredColor = '';
 
         this.toneColorByName = this.toneColorByName.bind(this);
         this.satColorByName = this.satColorByName.bind(this);
@@ -55,8 +60,11 @@ export default class MaterialColorPicker extends React.Component {
 
         this.titleName = this.titleName.bind(this);
         this.fullNameString = this.fullNameString.bind(this);
+        this.createEvent = this.createEvent.bind(this);
+
         this.onSubmit = this.onSubmit.bind(this);
         this.onReset = this.onReset.bind(this);
+        this.onHover = this.onHover.bind(this);
 
         this.rootDiv = this.rootDiv.bind(this);
     }
@@ -106,6 +114,13 @@ export default class MaterialColorPicker extends React.Component {
                 this.props.onReset(event);
             });
         };
+    }
+
+    onHover(event) {
+        if (event.target.value !== this.hoveredColor) {
+            this.hoveredColor = event.target.value;
+            this.props.onHover(event);
+        }
     }
 
     findColorName(colObj, colString) {
@@ -220,8 +235,8 @@ export default class MaterialColorPicker extends React.Component {
                                           this.state.selectedSat, this.state.hoveredSat),
                   }}
                   onClick={this.selectSat(this.satColorByName(val))}
-                  onMouseOver={this.hoverSat(this.satColorByName(val))}
-                  onMouseOut={this.hoverReset()}
+                  onMouseEnter={this.hoverSat(this.satColorByName(val))}
+                  onMouseLeave={this.hoverReset()}
                 >
                     <div
                       style={{ display: 'flex', alignItems: 'center', height: '100%' }}
@@ -293,32 +308,50 @@ export default class MaterialColorPicker extends React.Component {
     }
 
     selectTone(toneName) {
-        return () => {
-            this.setState({ selectedTone: toneName });
+        return (e) => {
+            const event = this.createEvent(e, 'select');
+            this.setState({ selectedTone: toneName },
+                this.props.onSelect(event)
+            );
         };
     }
 
     selectSat(satName) {
-        return () => {
-            this.setState({ selectedSat: satName });
+        return (e) => {
+            const event = this.createEvent(e, 'select');
+            this.setState({ selectedSat: satName },
+                this.props.onSelect(event)
+            );
         };
     }
 
     hoverTone(toneName) {
-        return () => {
-            this.setState({ hoveredTone: toneName });
+        return (e) => {
+            const { nativeEvent, persist } = e;
+            this.setState({ hoveredTone: toneName }, () => {
+                const event = this.createEvent({nativeEvent, persist}, 'hover');
+                this.onHover(event);
+            });
         };
     }
 
     hoverSat(satName) {
-        return () => {
-            this.setState({ hoveredSat: satName });
+        return (e) => {
+            const {nativeEvent, persist} = e;
+            this.setState({ hoveredSat: satName }, ()=>{
+                const event = this.createEvent({nativeEvent, persist}, 'hover');
+                this.onHover(event);
+            });
         };
     }
 
     hoverReset() {
-        return () => {
-            this.setState({ hoveredTone: '', hoveredSat: '' });
+        return (e) => {
+            const {nativeEvent, persist} = e;
+            this.setState({ hoveredTone: '', hoveredSat: '' }, ()=>{
+                const event = this.createEvent({nativeEvent, persist}, 'hover');
+                this.onHover(event);
+            });
         };
     }
 
@@ -410,6 +443,25 @@ export default class MaterialColorPicker extends React.Component {
                     {satString}
                 </span>
             </div>);
+    }
+
+    createEvent(e, type) {
+        const event = {
+            type,
+            timeStamp: e.nativeEvent.timeStamp,
+            eventPhase: 3,
+            target: {
+                value: _colors[this.fullNameString()],
+                nativeEvent: e.nativeEvent,
+                name: 'MaterialColorPicker',
+                node: this.rootDivRef,
+                ...this.props,
+            },
+            persist() {
+                e.persist();
+            },
+        };
+        return event;
     }
 
     rootDiv(div) {

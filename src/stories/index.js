@@ -58,6 +58,19 @@ storiesOf('Material Color Picker', module)
         </div>
 
     ))
+    .add('events', () => (
+
+        <div style={{ width: 400, backgroundColor: '#c7c7c7' }} >
+            <MaterialColorPicker
+              initColor="#3f51b5"
+              onSubmit={actionLog()}
+              onSelect={actionLog()}
+              onHover={actionLog()}
+              onReset={actionLog()}
+            />
+        </div>
+
+    ))
 //    storiesOf('Material Color Picker', module)
     .addWithInfo('API', `
 [![GitHub version](https://badge.fury.io/gh/sm-react%2Freact-material-color-picker.svg)](https://badge.fury.io/gh/sm-react%2Freact-material-color-picker)
