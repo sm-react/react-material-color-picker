@@ -21,7 +21,7 @@ $ npm i react-material-color-picker --save
 
 ## Usage
 
-~~~
+```js
 import React from 'react';
 import MaterialColorPicker from 'react-material-color-picker';
 
@@ -34,7 +34,7 @@ import MaterialColorPicker from 'react-material-color-picker';
     submitLabel='Apply'
     resetLabel='Undo'
 />
-~~~
+```
 
 ## Demo
 [![Live demo](https://img.shields.io/badge/Live%20Demo-%20Storybook-brightgreen.svg)](https://sm-react.github.io/react-material-color-picker/?selectedKind=Material%20Color%20Picker&selectedStory=default%20view&full=0&down=1&left=1&panelRight=1&downPanel=kadirahq%2Fstorybook-addon-actions%2Factions-panel)
@@ -49,7 +49,7 @@ import MaterialColorPicker from 'react-material-color-picker';
 **submitLabel** and **resetLabel** are titles of the appropriate buttons
 
 **onSubmit** and **onReset** are callbacks wich will be invoked by clicking the appropriate buttons. It will recieve an argument with the following structure:
-~~~js
+```js
 event = {
         type, // 'submit' || 'reset', 
         timeStamp, // nativeEvent.timeStamp,
@@ -61,7 +61,7 @@ event = {
             ...this.props,
         }
 };
-~~~
+```
 
 
 ## smArtLight
