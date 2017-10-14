@@ -1,17 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import imageDoneBlk from './ic_done_black_64dp_1x.png';
 import imageDoneWht from './ic_done_white_64dp_1x.png';
 const _colors = require('./colors');
 
 const propTypes = {
-    initColor: React.PropTypes.string,
-    onSubmit: React.PropTypes.func,
-    onSelect: React.PropTypes.func,
-    onHover: React.PropTypes.func,
-    onReset: React.PropTypes.func,
-    style: React.PropTypes.object,
-    submitLabel: React.PropTypes.string,
-    resetLabel: React.PropTypes.string,
+    initColor: PropTypes.string,
+    onSubmit: PropTypes.func,
+    onSelect: PropTypes.func,
+    onHover: PropTypes.func,
+    onReset: PropTypes.func,
+    style: PropTypes.object,
+    submitLabel: PropTypes.string,
+    resetLabel: PropTypes.string,
 };
 
 const defaultProps = {
