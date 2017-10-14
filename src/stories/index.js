@@ -1,7 +1,7 @@
 import React from 'react';
-import { storiesOf, action, setAddon } from '@kadira/storybook';
-import infoAddon from '@kadira/react-storybook-addon-info';
-import { withKnobs, text, object } from '@kadira/storybook-addon-knobs';
+import { storiesOf, action, setAddon } from '@storybook/react';
+import infoAddon from '@storybook/addon-info';
+import { withKnobs, text, object } from '@storybook/addon-knobs';
 
 // import MaterialColorPicker from 'react-material-color-picker';
 import MaterialColorPicker from '../MaterialColorPicker.jsx';
