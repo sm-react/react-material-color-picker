@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import imageDoneBlk from './ic_done_black_64dp_1x.png';
-import imageDoneWht from './ic_done_white_64dp_1x.png';
+import { Done } from './done-black';
 const _colors = require('./colors');
 
 const propTypes = {
@@ -41,12 +40,8 @@ export default class MaterialColorPicker extends React.Component {
         this.makeToneSwatches = this.makeToneSwatches.bind(this);
         this.makeGradeSwatches = this.makeGradeSwatches.bind(this);
 
-//        this.toneSwatches = this.makeToneSwatches(this.toneNames);
-
         this.initState = this.resetColor();
         this.state = {
-//            selectedTone: initTone ||  this.toneNames[0],
-//            selectedSat: initSat ||  '500',
             ...this.initState,
             hoveredTone: '',
             hoveredSat: '',
@@ -71,7 +66,7 @@ export default class MaterialColorPicker extends React.Component {
     }
 
     onSubmit() {
-        return (e) => {
+        return e => {
             const event = {
                 type: 'submit',
                 timeStamp: e.nativeEvent.timeStamp,
@@ -92,8 +87,7 @@ export default class MaterialColorPicker extends React.Component {
     }
 
     onReset() {
-        return (e) => {
-//            e.persist();
+        return e => {
             const timeStamp = e.nativeEvent.timeStamp;
             const nativeEvent = e.nativeEvent;
             this.setState(this.initState, () => {
@@ -126,10 +120,9 @@ export default class MaterialColorPicker extends React.Component {
 
     findColorName(colObj, colString) {
         const nameList = Object.keys(colObj);
-        const name = nameList.find((val) => {return (colObj[val] === colString);});
-        /* if (!colObj[name]) {
-            return 'white';
-        }*/
+        const name = nameList.find(val => {
+            return colObj[val] === colString;
+        });
         return name;
     }
 
@@ -137,8 +130,6 @@ export default class MaterialColorPicker extends React.Component {
         const initName = this.findColorName(_colors, this.props.initColor) || '';
         const initTone = this.toneColorByName(initName);
         const initSat = this.satColorByName(initName);
-//        console.info(initTone)
-//        console.info(initSat)
         const state = {
             selectedTone: initTone || this.toneNames[0],
             selectedSat: initSat || '500',
@@ -183,23 +174,16 @@ export default class MaterialColorPicker extends React.Component {
             blueGrey: nameList.filter(val => /^blueGrey/.test(val)),
             grey: nameList.filter(val => /^grey/.test(val)),
             black: nameList.filter(val => /black|white|Black|White/.test(val)),
-
         };
 
         return toneList;
-/*
-        const toneNames = Object.keys(toneList);
-        const allNames = toneNames.join(' ');
-        console.log(toneNames.length);
-        console.log(allNames);*/
     }
 
     makeToneSwatches(toneNames) {
-        return (
-            toneNames.map((val) => {
-                let toneBaseName = this.baseToneByName(val);
-                const baseColor = _colors[toneBaseName];
-                return (
+        return toneNames.map(val => {
+            let toneBaseName = this.baseToneByName(val);
+            const baseColor = _colors[toneBaseName];
+            return (
                 <div
                   key={toneBaseName}
                   title={val}
@@ -213,17 +197,14 @@ export default class MaterialColorPicker extends React.Component {
                       cursor: 'pointer',
                       ...this.borderSelTone(val, this.state.selectedTone, this.state.hoveredTone),
                   }}
-                >
-
-                </div>
+                />
             );
-            })
-        );
+        });
     }
 
     makeGradeSwatches(toneName) {
         const gradeNameList = this.colorNames[toneName];
-        const gradeSwatches = gradeNameList.map((val) => {
+        const gradeSwatches = gradeNameList.map(val => {
             return (
                 <div
                   key={val}
@@ -232,16 +213,17 @@ export default class MaterialColorPicker extends React.Component {
                       flexGrow: 1,
                       width: '100%',
                       cursor: 'pointer',
-                      ...this.borderSelGrade(this.satColorByName(val),
-                                          this.state.selectedSat, this.state.hoveredSat),
+                      ...this.borderSelGrade(
+                            this.satColorByName(val),
+                            this.state.selectedSat,
+                            this.state.hoveredSat
+                        ),
                   }}
                   onClick={this.selectSat(this.satColorByName(val))}
                   onMouseEnter={this.hoverSat(this.satColorByName(val))}
                   onMouseLeave={this.hoverReset()}
                 >
-                    <div
-                      style={{ display: 'flex', alignItems: 'center', height: '100%' }}
-                    >
+                    <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
                         <div
                           style={{
                               width: 2,
@@ -250,18 +232,17 @@ export default class MaterialColorPicker extends React.Component {
                               position: 'relative',
                               margin: 'auto',
                               transform: 'rotate(-90deg)',
-//                                backgroundColor: 'white',
                           }}
                         >
-                            <div style={{
-                                textAlign: 'center',
-                                display: 'inline-block',
-//                                    width: 'auto',
-                                left: '-50%',
-                                top: -6,
-                                position: 'relative',
-                                color: this.bwColorByName(val),
-                            }}
+                            <div
+                              style={{
+                                  textAlign: 'center',
+                                  display: 'inline-block',
+                                  left: '-50%',
+                                  top: -6,
+                                  position: 'relative',
+                                  color: this.bwColorByName(val),
+                              }}
                             >
                                 {this.blackShortName(this.satColorByName(val))}
                             </div>
@@ -309,25 +290,21 @@ export default class MaterialColorPicker extends React.Component {
     }
 
     selectTone(toneName) {
-        return (e) => {
+        return e => {
             const event = this.createEvent(e, 'select');
-            this.setState({ selectedTone: toneName },
-                this.props.onSelect(event)
-            );
+            this.setState({ selectedTone: toneName }, this.props.onSelect(event));
         };
     }
 
     selectSat(satName) {
-        return (e) => {
+        return e => {
             const event = this.createEvent(e, 'select');
-            this.setState({ selectedSat: satName },
-                this.props.onSelect(event)
-            );
+            this.setState({ selectedSat: satName }, this.props.onSelect(event));
         };
     }
 
     hoverTone(toneName) {
-        return (e) => {
+        return e => {
             const { nativeEvent, persist } = e;
             this.setState({ hoveredTone: toneName }, () => {
                 const event = this.createEvent({ nativeEvent, persist }, 'hover');
@@ -337,7 +314,7 @@ export default class MaterialColorPicker extends React.Component {
     }
 
     hoverSat(satName) {
-        return (e) => {
+        return e => {
             const { nativeEvent, persist } = e;
             this.setState({ hoveredSat: satName }, () => {
                 const event = this.createEvent({ nativeEvent, persist }, 'hover');
@@ -347,7 +324,7 @@ export default class MaterialColorPicker extends React.Component {
     }
 
     hoverReset() {
-        return (e) => {
+        return e => {
             const { nativeEvent, persist } = e;
             this.setState({ hoveredTone: '', hoveredSat: '' }, () => {
                 const event = this.createEvent({ nativeEvent, persist }, 'hover');
@@ -366,8 +343,9 @@ export default class MaterialColorPicker extends React.Component {
 
     toneColorByName(colorName) {
         const satName = this.satColorByName(colorName);
-        const toneName = /black|white|Black|White/.test(satName) ? 'black' :
-        colorName.replace(satName, '');
+        const toneName = /black|white|Black|White/.test(satName)
+            ? 'black'
+            : colorName.replace(satName, '');
         return toneName;
     }
 
@@ -411,11 +389,8 @@ export default class MaterialColorPicker extends React.Component {
         const satString = this.state.hoveredSat || this.state.selectedSat;
         if (toneString === 'black') {
             toneString = '';
-//            if(!/black|white/.test(satString)) {
-//                satString = 'black';
-//            }
         }
-        return (`${toneString}${satString}`);
+        return `${toneString}${satString}`;
     }
 
     titleName(isBlack) {
@@ -425,25 +400,23 @@ export default class MaterialColorPicker extends React.Component {
         let satString = this.state.hoveredSat || this.state.selectedSat;
         if (toneString === 'black') {
             toneString = '';
-//            if(!/black|white/.test(satString)) {
-//                satString = 'black';
-//            }
         }
-        const isHovTone = !(this.state.hoveredTone === this.state.selectedTone)
-        && (this.state.hoveredTone);
-        const isHovSat = !(this.state.hoveredSat === this.state.selectedSat)
-        && (this.state.hoveredSat);
+        const isHovTone =
+            !(this.state.hoveredTone === this.state.selectedTone) && this.state.hoveredTone;
+        const isHovSat =
+            !(this.state.hoveredSat === this.state.selectedSat) && this.state.hoveredSat;
         const toneColor = isHovTone ? greyColor : baseColor;
         const satColor = isHovSat ? greyColor : baseColor;
         return (
             <div>
-                <span style={{ color: toneColor, fontWeight: isHovTone ? '' : 'bold' }} >
+                <span style={{ color: toneColor, fontWeight: isHovTone ? '' : 'bold' }}>
                     {toneString}
                 </span>
-                <span style={{ color: satColor, fontWeight: isHovSat ? '' : 'bold' }} >
+                <span style={{ color: satColor, fontWeight: isHovSat ? '' : 'bold' }}>
                     {satString}
                 </span>
-            </div>);
+            </div>
+        );
     }
 
     createEvent(e, type) {
@@ -484,15 +457,12 @@ export default class MaterialColorPicker extends React.Component {
                 <div
                   className="material-color-picker-tone-swatches"
                   style={{
-//                        padding: 5,
-//                        width: '100%',
                       display: 'flex',
-                      flexDirection: 'row'/* 'column'*/,
+                      flexDirection: 'row',
                       justifyContent: 'space-between',
                   }}
                 >
                     {this.makeToneSwatches(this.toneNames)}
-
                 </div>
                 <div
                   className="material-color-picker-title"
@@ -506,20 +476,13 @@ export default class MaterialColorPicker extends React.Component {
                       justifyContent: 'space-between',
                   }}
                 >
-                    {/* <span style={{color: 'white'}} >{this.state.selectedTone + 's'}</span>
-                    <span style={{color: 'black'}} >{this.state.selectedTone + 's'}</span>*/}
                     {this.titleName(false)}
                     {this.titleName(true)}
                 </div>
                 <div
                   style={{
                       marginTop: 5,
-//                        padding: 5,
-//                        paddingLeft: 0,
-//                        paddingRight: 25,
-//                        backgroundColor: _colors[this.baseToneByName(this.state.selectedTone)],
                       display: 'flex',
-//                        justifyContent: 'space-between',
                   }}
                 >
                     <div
@@ -530,22 +493,14 @@ export default class MaterialColorPicker extends React.Component {
                           backgroundColor: _colors[this.fullNameString()],
                       }}
                     >
-                       {this.state.hoveredSubmit ?
-                            <img
-                              src={
-                                    this.bwColorByName(this.fullNameString()) === 'black' ?
-                                    imageDoneBlk : imageDoneWht}
-                              style={{ opacity: 0.4 }}
-                              alt="submit"
-                            /> : null
-                       }
-
+                        {this.state.hoveredSubmit ? (
+                            <Done color={this.bwColorByName(this.fullNameString())} />
+                        ) : null}
                     </div>
 
                     <div
                       className="material-color-picker-sat-swatches"
                       style={{
-//                            height: 60,
                           flexGrow: 1,
                           width: 278,
                           marginLeft: 5,
@@ -554,7 +509,6 @@ export default class MaterialColorPicker extends React.Component {
                     >
                         {this.makeGradeSwatches(this.state.selectedTone)}
                     </div>
-
                 </div>
                 <div
                   style={{
@@ -570,13 +524,14 @@ export default class MaterialColorPicker extends React.Component {
                       color: '#404040',
                   }}
                 >
-                    <div style={{
-                        width: 'auto',
-//                            display: 'flex',
-//                            flexWrap: 'wrap',
-                    }}
+                    <div
+                      style={{
+                          width: 'auto',
+                      }}
                     >
-                        <b><nobr>{ _colors[this.fullNameString()] }</nobr></b>
+                        <b>
+                            <nobr>{_colors[this.fullNameString()]}</nobr>
+                        </b>
                     </div>
                     <div
                       style={{
@@ -613,14 +568,10 @@ export default class MaterialColorPicker extends React.Component {
                             {this.props.submitLabel}
                         </div>
                     </div>
-                    {/*
-                    <span style={{color: 'white'}} >{_colors[this.fullNameString()]}</span>
-                    <span style={{color: 'black'}} >{_colors[this.fullNameString()]}</span>*/}
                 </div>
             </div>
         );
     }
-
 }
 
 MaterialColorPicker.propTypes = propTypes;
